@@ -1,3 +1,5 @@
+package org.example;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,10 +9,10 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
-public class Main {
+public class Cash {
     private static final String CBR_URL = "https://www.cbr.ru/currency_base/daily/";
-    private static Map <String, Currency> currencies = new HashMap<>();
-    private static Map <Integer,Currency> currCode = new HashMap<>();
+    private static final Map <String, Currency> currencies = new HashMap<>();
+    private static final Map <Integer,Currency> currCode = new HashMap<>();
 
     public static void main(String[] args) {
         loadCurrencies();
@@ -52,6 +54,7 @@ public class Main {
                     .get();
 
             Element table = doc.select("table.data").first();
+            assert table != null;
             Elements rows = table.select("tr:gt(0)"); // Пропускаем заголовок
 
             for (Element row : rows) {
@@ -66,7 +69,7 @@ public class Main {
 
                         Currency currency = new Currency(numb, code, name, rate, units);
                         currCode.put(numb, currency);
-                        currencies.put(code.toLowerCase(), new Currency(numb, code, name, rate, units));
+                        currencies.put(code.toLowerCase(), currency);
                     } catch (Exception e) {
                         System.err.println("Ошибка парсинга строки: " + row.text());
                     }
@@ -83,9 +86,9 @@ public class Main {
     private static void convertToRubles(Scanner in) {
         System.out.println("\nДоступные валюты:");
         currencies.values().stream()
-                .sorted(Comparator.comparing(Currency::getCode))
+                .sorted(Comparator.comparing(Currency::code))
                 .forEach(c -> System.out.printf("%03d - %s(%s) (1 %s = %.4f руб.)%n",
-                        c.getNumb(), c.getCode(), c.getName(), c.getCode(), c.getRatePerUnit()));
+                        c.numb(), c.code(), c.name(), c.code(), c.getRatePerUnit()));
 
         System.out.print("\nВведите код валюты (например, 840 для USD): ");
         int numb = in.nextInt();
@@ -96,19 +99,19 @@ public class Main {
         }
 
         Currency currency = currCode.get(numb);
-        System.out.printf("Введите сумму в %s: ", currency.getCode());
+        System.out.printf("Введите сумму в %s: ", currency.code());
         double amount = in.nextDouble();
 
         double result = amount * currency.getRatePerUnit();
-        System.out.printf("%.2f %s(%03d) = %.2f RUB%n", amount, currency.getCode(),currency.getNumb(), result);
+        System.out.printf("%.2f %s(%03d) = %.2f RUB%n", amount, currency.code(),currency.numb(), result);
     }
 
     private static void convertFromRubles(Scanner in) {
         System.out.println("\nДоступные валюты:");
         currencies.values().stream()
-                .sorted(Comparator.comparing(Currency::getCode))
+                .sorted(Comparator.comparing(Currency::code))
                 .forEach(c -> System.out.printf("%03d - %s(%s) (1 %s = %.4f руб.)%n",
-                        c.getNumb(), c.getCode(), c.getName(), c.getCode(), c.getRatePerUnit()));
+                        c.numb(), c.code(), c.name(), c.code(), c.getRatePerUnit()));
 
         System.out.print("\nВведите цифровой код валюты (например, 978 для EUR): ");
         Integer  numb = in.nextInt();
@@ -123,18 +126,18 @@ public class Main {
         double amount = in.nextDouble();
 
         double result = amount / currency.getRatePerUnit();
-        System.out.printf("%.2f RUB = %.2f %s%n", amount, result, currency.getCode());
+        System.out.printf("%.2f RUB = %.2f %s%n", amount, result, currency.code());
     }
 
     private static void showAllCurrencies() {
         System.out.println("\nТекущие курсы валют ЦБ РФ:\n");
         System.out.printf("\n%-5s %-5s %-40s %-25s %-15s%n","Идентификатор", "Код", "Название", "Курс", "За 1 ед.");
-        System.out.println("");
+        System.out.println();
 
         currencies.values().stream()
-                .sorted(Comparator.comparing(Currency::getCode))
+                .sorted(Comparator.comparing(Currency::code))
                 .forEach(c -> System.out.printf("%-5d %-5s %-40s %-25.4f %-15.4f%n",
-                        c.getNumb(),c.getCode(), c.getName(), c.getRate(), c.getRatePerUnit()));
+                        c.numb(),c.code(), c.name(), c.rate(), c.getRatePerUnit()));
     }
 
     private static double parseNumber(String numberStr) throws ParseException {
@@ -142,26 +145,9 @@ public class Main {
         return format.parse(numberStr.replace(" ", "")).doubleValue();
     }
 
-    static class Currency {
-        private final int numb;
-        private final String code;
-        private final String name;
-        private final double rate;
-        private final int units;
-
-        public Currency(int numb, String code, String name, double rate, int units) {
-            this.numb = numb;
-            this.code = code;
-            this.name = name;
-            this.rate = rate;
-            this.units = units;
+    record Currency(int numb, String code, String name, double rate, int units) {
+        public double getRatePerUnit() {
+            return rate / units;
         }
-
-        public int getNumb() { return numb; }
-        public String getCode() { return code; }
-        public String getName() { return name; }
-        public double getRate() { return rate; }
-        public int getUnits() { return units; }
-        public double getRatePerUnit() { return rate / units; }
-    }
+        }
 }
