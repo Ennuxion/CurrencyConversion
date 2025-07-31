@@ -199,11 +199,7 @@ public class Cash {
         System.out.println("\nКурс данной валюты сегодня:");
         System.out.printf("\n%-15s %-10s %-40s %-25s %-15s%n","Идентификатор", "Код", "Название", "Курс (в рублях)", "За 1 ед.");
         System.out.printf("%-15d %-10s %-40s %-25.4f %-15.4f%n",
-                currency.numb(),
-                currency.code(),
-                currency.name(),
-                currency.rate(),
-                currency.getRatePerUnit());
+                currency.numb(), currency.code(), currency.name(), currency.rate(), currency.getRatePerUnit());
     }
 
     private static double parseNumber(String numberStr) throws ParseException {
