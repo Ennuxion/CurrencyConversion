@@ -82,7 +82,7 @@ public class Cash {
                 }
             }
 
-            System.out.println("Курсы валют успешно загружены. Доступно " + currencies.size() + " валют.");
+            System.out.println("\nКурсы валют успешно загружены. Доступно " + currencies.size() + " валют.");
         } catch (IOException e) {
             System.err.println("Ошибка при загрузке курсов валют: " + e.getMessage());
             System.exit(1);
