@@ -146,6 +146,64 @@ public class Cash {
                         c.numb(),c.code(), c.name(), c.rate(), c.getRatePerUnit()));
     }
 
+    private static void fromCurrToCurr(Scanner in) {
+        System.out.println("\nДоступные валюты:");
+        currencies.values().stream()
+                .sorted(Comparator.comparing(Currency::code))
+                .forEach(c -> System.out.printf("%03d - %s(%s) (1 %s = %.4f руб.)%n",
+                        c.numb(), c.code(), c.name(), c.code(), c.getRatePerUnit()));
+
+        System.out.print("\nВведите код валюты, которую хотите перевести (например, 840 для USD): ");
+        int numb1 = in.nextInt();
+
+        System.out.print("\nВведите код необходимой валюты (например, 840 для USD): ");
+        int numb2 = in.nextInt();
+
+        if (!currCode.containsKey(numb1)) {
+            System.out.println("Валюта не найдена!");
+            return;
+        } else if(!currCode.containsKey(numb2)) {
+            System.out.println("Валюта не найдена!");
+            return;}
+
+        Currency currency1 = currCode.get(numb1);
+        Currency currency2 = currCode.get(numb2);
+        System.out.printf("Введите сумму в %s: ", currency1.code());
+        double amount = in.nextDouble();
+
+        double result1 = amount * currency1.getRatePerUnit();
+        double result2 = result1 / currency2.getRatePerUnit();
+        System.out.printf("%.2f %s(%03d) = %.2f %s(%03d)%n", amount, currency1.code(),currency1.numb(), result2, currency2.code(), currency2.numb());
+    }
+
+    private static void showCurrency(Scanner in) {
+        System.out.println("\nКакая валюта вас интересует?\n");
+        System.out.printf("\n%-5s ", "Название валюты");
+        System.out.println();
+
+        currencies.values().stream()
+                .sorted(Comparator.comparing(Currency::numb))
+                .forEach(c -> System.out.printf("\n%d - %s (%s) ",c.numb, c.name(),  c.code()));
+
+        System.out.println("\nВведите код валюты:");
+        int codeCurr = in.nextInt ();
+
+        if (!currCode.containsKey(codeCurr)) {
+            System.out.println("\nВалюта не найдена!");
+            return;
+        }
+        Currency currency = currCode.get(codeCurr);
+
+        System.out.println("\nКурс данной валюты сегодня:");
+        System.out.printf("\n%-15s %-10s %-40s %-25s %-15s%n","Идентификатор", "Код", "Название", "Курс (в рублях)", "За 1 ед.");
+        System.out.printf("%-15d %-10s %-40s %-25.4f %-15.4f%n",
+                currency.numb(),
+                currency.code(),
+                currency.name(),
+                currency.rate(),
+                currency.getRatePerUnit());
+    }
+
     private static double parseNumber(String numberStr) throws ParseException {
         NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
         return format.parse(numberStr.replace(" ", "")).doubleValue();
