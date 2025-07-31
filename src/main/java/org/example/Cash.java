@@ -40,7 +40,10 @@ public class Cash {
                 case 4:
                     showAllCurrencies();
                     break;
-                case 4:
+                case 5:
+                    showCurrency(in );
+                    break;
+                case 6:
                     System.out.println("До свидания!");
                     return;
                 default:
