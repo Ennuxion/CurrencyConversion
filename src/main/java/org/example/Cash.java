@@ -22,8 +22,10 @@ public class Cash {
             System.out.println("\nЧто вы хотите сделать?");
             System.out.println("1. Конвертировать валюту в рубли");
             System.out.println("2. Конвертировать рубли в валюту");
-            System.out.println("3. Показать все курсы валют");
-            System.out.println("4. Выход");
+            System.out.println("3. Конвертация иностранных валют");
+            System.out.println("4. Показать все курсы валют (в рублях)");
+            System.out.println("5. Показать курс одной валюты (в рублях)");
+            System.out.println("6. Выход");
             System.out.print("Выберите действие: ");
 
             int choice = in.nextInt();
