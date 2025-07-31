@@ -35,6 +35,9 @@ public class Cash {
                     convertFromRubles(in);
                     break;
                 case 3:
+                    fromCurrToCurr(in);
+                    break;
+                case 4:
                     showAllCurrencies();
                     break;
                 case 4:
