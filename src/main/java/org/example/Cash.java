@@ -142,7 +142,7 @@ public class Cash {
 
         currencies.values().stream()
                 .sorted(Comparator.comparing(Currency::code))
-                .forEach(c -> System.out.printf("%-5d %-5s %-40s %-25.4f %-15.4f%n",
+                .forEach(c -> System.out.printf("%-15d %-10s %-40s %-25.4f %-15.4f%n",
                         c.numb(),c.code(), c.name(), c.rate(), c.getRatePerUnit()));
     }
 
