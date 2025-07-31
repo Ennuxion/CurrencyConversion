@@ -137,7 +137,7 @@ public class Cash {
 
     private static void showAllCurrencies() {
         System.out.println("\nТекущие курсы валют ЦБ РФ:\n");
-        System.out.printf("\n%-5s %-5s %-40s %-25s %-15s%n","Идентификатор", "Код", "Название", "Курс", "За 1 ед.");
+        System.out.printf("\n%-15s %-10s %-40s %-25s %-15s%n","Идентификатор", "Код", "Название", "Курс (в рублях)", "За 1 ед.");
         System.out.println();
 
         currencies.values().stream()
