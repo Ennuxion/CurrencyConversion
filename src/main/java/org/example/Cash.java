@@ -25,7 +25,10 @@ public class Cash {
             System.out.println("3. Конвертация иностранных валют");
             System.out.println("4. Показать все курсы валют (в рублях)");
             System.out.println("5. Показать курс одной валюты (в рублях)");
-            System.out.println("6. Выход");
+            System.out.println("6. Показать курс драг. металлов (руб./грамм)");
+            System.out.println("7. Конвертировать рубли в металл");
+            System.out.println("8. Конвертировать металл в рубли");
+            System.out.println("9. Выход");
             System.out.print("Выберите действие: ");
 
             int choice = in.nextInt();
