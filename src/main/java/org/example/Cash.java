@@ -337,4 +337,13 @@ public class Cash {
             return rate / units;
         }
         }
+
+    record Metal(String date, double gold, double silver, double platinum, double palladium) {
+        public String getSummary() {
+            return String.format(
+                    "Курс на %s:\n- Золото: %.2f руб/г \n- Серебро: %.2f руб/г\n- Платина: %.2f руб/г\n- Палладий: %.2f руб/г",
+                    date, gold, silver, platinum, palladium
+            );
+        }
+    }
 }
