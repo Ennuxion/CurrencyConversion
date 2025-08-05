@@ -54,6 +54,62 @@ public class Cash {
         }
     }
 
+    private static void metallToRub(Scanner in) {
+        System.out.println("Выберите металл, который вы хотите продать:");
+        System.out.println("1. Золото");
+        System.out.println("2. Серебро");
+        System.out.println("3. Платина");
+        System.out.println("4. Палладий");
+        Metall latest = metalls.values().iterator().next();
+        Scanner input = new Scanner(System.in);
+        int choiceMet = input.nextInt();
+        switch (choiceMet) {
+            case 1:
+                System.out.println("Введите количество (в граммах): ");
+                double goldSum = input.nextDouble();
+                double rubGold = goldSum  * latest.gold;
+                System.out.printf("Вы получите: %.3f", rubGold);
+                break;
+
+            case 2:
+                System.out.println("Введите количество (в граммах): ");
+                double silverSum = input.nextDouble();
+                double rubSilver = silverSum  * latest.silver;
+                System.out.printf("Вы получите: %.3f", rubSilver);
+                break;
+
+            case 3:
+                System.out.println("Введите количество (в граммах): ");
+                double platinumSum = input.nextDouble();
+                double rubPlatinum = platinumSum * latest.platinum;
+                System.out.printf("Вы получите: %.3f", rubPlatinum);
+                break;
+
+            case 4:
+                System.out.println("Введите количество (в граммах): ");
+                double palladiumSum = input.nextDouble();
+                double rubPalladium = palladiumSum * latest.palladium;
+                System.out.printf("Вы получите: %.3f", rubPalladium);
+                break;
+        }
+    }
+
+    private static void rubToMetall(Scanner in) {
+
+        System.out.println("Введите сумму, на которую хотите купить металл:");
+
+        double sum = in.nextDouble();
+
+        Metall latest = metalls.values().iterator().next();
+
+        double goldRub = (sum / latest.gold);
+        double silverRub = (sum / latest.silver);
+        double platinumRub = (sum / latest.platinum);
+        double palladiumRub = (sum / latest.palladium);
+        System.out.println("На эти деньги можно приобрести: ");
+        System.out.printf(" Золото - %.3f грамм\n Серебро - %.3f грамм\n Платина - %.3f грамм\n Палладий - %.3f грамм\n", goldRub, silverRub, platinumRub, palladiumRub);
+    }
+
     private static void loadCurrencies() {
         try {
             Document doc = Jsoup.connect(CBR_URL)
