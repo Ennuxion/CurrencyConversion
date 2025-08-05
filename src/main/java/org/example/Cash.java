@@ -46,6 +46,15 @@ public class Cash {
                     showCurrency(in );
                     break;
                 case 6:
+                    showMetal(in);
+                    break;
+                case 7:
+                    rubToMetall(in);
+                    break;
+                case 8:
+                    metallToRub(in);
+                    break;
+                case 9:
                     System.out.println("До свидания!");
                     return;
                 default:
