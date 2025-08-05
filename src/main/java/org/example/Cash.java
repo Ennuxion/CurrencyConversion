@@ -147,6 +147,52 @@ public class Cash {
         }
     }
 
+    private static void loadMetall() {
+        try {
+            Document doc = Jsoup.connect(CBR_URL_MET)
+                    .userAgent("Mozilla/5.0")
+                    .timeout(10000)
+                    .get();
+
+            Element table = doc.select("table.data").first();
+            if (table == null) {
+                throw new RuntimeException("Таблица с курсами металлов не найдена");
+            }
+
+            Elements rows = table.select("tbody tr"); // Более точный селектор
+
+            for (Element row : rows) {
+                Elements cols = row.select("td");
+                if (cols.size() >= 5) {  // Проверяем, что есть все нужные колонки
+                    try {
+                        String date = cols.get(0).text().trim();
+                        double gold = parseMetalValue(cols.get(1).text());
+                        double silver = parseMetalValue(cols.get(2).text());
+                        double platinum = parseMetalValue(cols.get(3).text());
+                        double palladium = parseMetalValue(cols.get(4).text());
+
+                        Metall rateMet = new Metall(date, gold, silver, platinum, palladium);
+                        metDate.put(date, rateMet);
+                        metalls.put(date, rateMet);
+                    } catch (Exception e) {
+                        System.err.println("Ошибка парсинга строки: " + row.text());
+                        e.printStackTrace();
+                    }
+                }
+            }
+            System.out.println("Курсы металлов успешно загружены. Записей: " + metalls.size());
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке курсов металлов: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    private static double parseMetalValue(String text) throws ParseException {
+        // Удаляем все пробелы (как разделители тысяч) и заменяем запятую на точку
+        String normalized = text.replaceAll("\\s+", "").replace(',', '.');
+        return Double.parseDouble(normalized);
+    }
+
     private static void convertToRubles(Scanner in) {
         System.out.println("\nДоступные валюты:");
         currencies.values().stream()
