@@ -58,7 +58,7 @@ public class Cash {
                     rubToMetal(in);
                     break;
                 case 8:
-                    metallToRub(in);
+                    metalToRub(in);
                     break;
                 case 9:
                     System.out.println("До свидания!");
