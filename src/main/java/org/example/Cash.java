@@ -55,7 +55,7 @@ public class Cash {
                     showMetal(in);
                     break;
                 case 7:
-                    rubToMetall(in);
+                    rubToMetal(in);
                     break;
                 case 8:
                     metallToRub(in);
