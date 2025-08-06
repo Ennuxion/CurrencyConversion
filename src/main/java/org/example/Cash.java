@@ -10,7 +10,10 @@ import java.text.ParseException;
 import java.util.*;
 
 public class Cash {
-    private static final String CBR_URL = "https://www.cbr.ru/currency_base/daily/";
+    private static final String CBR_URL_MET = "https://www.cbr.ru/hd_base/metall/metall_base_new/";
+    private static final Map <String, Metal> metals = new HashMap<>();
+    private static final Map <String,Metal> metDate = new HashMap<>();
+    private static final String CBR_URL_CUR = "https://www.cbr.ru/currency_base/daily/";
     private static final Map <String, Currency> currencies = new HashMap<>();
     private static final Map <Integer,Currency> currCode = new HashMap<>();
 
