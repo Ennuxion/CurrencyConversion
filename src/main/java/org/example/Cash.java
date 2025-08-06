@@ -186,7 +186,7 @@ public class Cash {
                         double platinum = parseMetalValue(cols.get(3).text());
                         double palladium = parseMetalValue(cols.get(4).text());
 
-                        Metall rateMet = new Metall(date, gold, silver, platinum, palladium);
+                        Metal rateMet = new Metal(date, gold, silver, platinum, palladium);
                         metDate.put(date, rateMet);
                         metalls.put(date, rateMet);
                     } catch (Exception e) {
