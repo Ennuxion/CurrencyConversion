@@ -115,7 +115,7 @@ public class Cash {
 
         double sum = in.nextDouble();
 
-        Metall latest = metalls.values().iterator().next();
+        Metal latest = metals.values().iterator().next();
 
         double goldRub = (sum / latest.gold);
         double silverRub = (sum / latest.silver);
