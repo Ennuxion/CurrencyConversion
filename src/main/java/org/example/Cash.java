@@ -109,7 +109,7 @@ public class Cash {
         }
     }
 
-    private static void rubToMetall(Scanner in) {
+    private static void rubToMetal(Scanner in) {
 
         System.out.println("Введите сумму, на которую хотите купить металл:");
 
