@@ -127,7 +127,7 @@ public class Cash {
 
     private static void loadCurrencies() {
         try {
-            Document doc = Jsoup.connect(CBR_URL)
+            Document doc = Jsoup.connect(CBR_URL_CUR)
                     .userAgent("Mozilla/5.0")
                     .timeout(10000)
                     .get();
