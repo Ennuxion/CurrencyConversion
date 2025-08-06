@@ -162,7 +162,7 @@ public class Cash {
         }
     }
 
-    private static void loadMetall() {
+    private static void loadMetal() {
         try {
             Document doc = Jsoup.connect(CBR_URL_MET)
                     .userAgent("Mozilla/5.0")
