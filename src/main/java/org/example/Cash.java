@@ -75,7 +75,7 @@ public class Cash {
         System.out.println("2. Серебро");
         System.out.println("3. Платина");
         System.out.println("4. Палладий");
-        Metall latest = metalls.values().iterator().next();
+        Metal latest = metals.values().iterator().next();
         Scanner input = new Scanner(System.in);
         int choiceMet = input.nextInt();
         switch (choiceMet) {
