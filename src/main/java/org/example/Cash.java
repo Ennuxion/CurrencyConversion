@@ -69,7 +69,7 @@ public class Cash {
         }
     }
 
-    private static void metallToRub(Scanner in) {
+    private static void metalToRub(Scanner in) {
         System.out.println("Выберите металл, который вы хотите продать:");
         System.out.println("1. Золото");
         System.out.println("2. Серебро");
