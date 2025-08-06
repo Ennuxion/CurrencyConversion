@@ -195,7 +195,7 @@ public class Cash {
                     }
                 }
             }
-            System.out.println("Курсы металлов успешно загружены. Записей: " + metalls.size());
+            System.out.println("Курсы металлов успешно загружены. Записей: " + metals.size());
         } catch (IOException e) {
             System.err.println("Ошибка при загрузке курсов металлов: " + e.getMessage());
             System.exit(1);
