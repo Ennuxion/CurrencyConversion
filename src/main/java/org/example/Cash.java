@@ -324,8 +324,8 @@ public class Cash {
         System.out.printf("\n%-20s %-20s %-20s %-20s %-20s%n","Дата", "Золото", "Серебро", "Платина", "Палладий");
         System.out.println();
 
-        metalls.values().stream()
-                .sorted(Comparator.comparing(Metall::date))
+        metals.values().stream()
+                .sorted(Comparator.comparing(Metal::date))
                 .forEach(m -> System.out.printf("%-20s %-20s %-20s %-20.4f %-20.4f%n",
                         m.date(),m.gold(), m.silver(), m.platinum(), m.palladium()));
     }
