@@ -188,7 +188,7 @@ public class Cash {
 
                         Metal rateMet = new Metal(date, gold, silver, platinum, palladium);
                         metDate.put(date, rateMet);
-                        metalls.put(date, rateMet);
+                        metals.put(date, rateMet);
                     } catch (Exception e) {
                         System.err.println("Ошибка парсинга строки: " + row.text());
                         e.printStackTrace();
